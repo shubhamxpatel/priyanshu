@@ -23,7 +23,7 @@
 <script>
     async function fun() {
         let s = document.getElementById("review").value
-        let res = await fetch('http://localhost:5000/s-analyzer', {
+        let res = await fetch('/s-analyzer', {
             method: "POST",
             body: JSON.stringify({
                 "review": s
