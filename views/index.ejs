@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        😄 sentiment-analyzer
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Enter text for checking sentiment</h2>
+
+        <input type="text" name="review" id="review" placeholder="enter sentiment">
+        <button onclick="fun()">find expression</button>
+        <img src="" alt="" id="img" height="100" width="100">
+    </div>
+</body>
+<script>
+    async function fun() {
+        let s = document.getElementById("review").value
+        let res = await fetch('http://localhost:5000/s-analyzer', {
+            method: "POST",
+            body: JSON.stringify({
+                "review": s
+            }),
+            headers: {
+                "content-type": "application/json"
+            }
+
+        })
+        res.json().then((result) => {
+            const {
+                analysis
+            } = result
+            let src = ""
+            let img = document.getElementById("img")
+            if (analysis > 0) {
+                src = "/images/happy.png"
+            } else if (analysis < 0) {
+                src = "/images/sad.png"
+            } else {
+                src = "/images/common.png"
+            }
+            img.src = src;
+            console.log(src)
+        })
+
+    }
+</script>
+
+</html>
